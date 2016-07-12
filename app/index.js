@@ -2,7 +2,7 @@
 function createKey(token) {
     var btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "vkbrd-key";
+    btn.className = "vkbrd-key vkbrd-key-" + token;
     btn.innerText = token;
     return btn;
 }
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         "Shift z x c v b n m , . / Shift",
         "Lang Space"
     ];
-   
+    
     var element = createLayout(qwerty);
     document.body.appendChild(element);
 
