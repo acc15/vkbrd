@@ -1,8 +1,16 @@
 {
     "scripts": {
-        "start": "browser-sync start -s app -s . -f app -f ."
+        "tsc": "tsc",
+        "tsc:w": "tsc -w",
+        "sass": "node-sass -o app --source-map true --output-style compressed src",
+        "sass:w": "nodemon -e scss -w src -x npm run sass",
+        "bs": "browser-sync start -s app -s . -f app -f .",
+        "start": "concurrently \"npm run tsc:w\" \"npm run sass:w\" \"npm run bs\""
     },
     "devDependencies": {
-        "browser-sync": "2.13.0"
+        "browser-sync": "2.13.0",
+        "typescript": "1.8.10",
+        "concurrently": "2.2.0",
+        "node-sass": "3.8.0"
     }
 }
