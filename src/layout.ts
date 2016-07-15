@@ -23,13 +23,26 @@ class StringLayout implements Layout {
             rowContainer.className = "vkbrd-row";
 
             let rowKeys = row.split(/\s+/);
-            for (let keyId of rowKeys) {
+            for (let rowKey of rowKeys) {
+
+                let rowKeyParts = rowKey.split(":");
+                let keyId = rowKeyParts[0];
+                let keyWidth = rowKeyParts[1];
+
                 let keyButton = document.createElement("button");
                 let keyHandler = kb.handler(keyId);
 
                 let key = new ButtonKey(keyId, keyButton);
                 keyButton.type = "button";
                 keyButton.innerText = kb.label(keyId);
+                keyButton.className = "vkbrd-key";
+
+                if (keyId.length === 1) {
+                    keyWidth = "sm";
+                }
+                if (keyWidth) {
+                    keyButton.className += " vkbrd-key-" + keyWidth;
+                }
                 keyButton.addEventListener('click', function() {
                     keyHandler(kb, key);
                 });

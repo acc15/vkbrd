@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
         layout: Layouts.QWERTY,
         lang: [ Languages.ENG, Languages.RUS ],
         keys: [ KeyMaps.DEFAULT ]
-    });
+    }).attach(<HTMLInputElement>document.getElementById("inp"));
 
 
     //

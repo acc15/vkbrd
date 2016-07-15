@@ -1,10 +1,28 @@
 .vkbrd-row {
-    text-align: center;
     margin: 2px 0;
-    font-size: 13px;
-    
 }
 
 .vkbrd-key {
     margin: 0 2px;
+    height: 30px;
+}
+
+.vkbrd-spacer {
+    width: 10px;
+}
+
+.vkbrd-key-sm {
+    width: 30px;
+}
+
+.vkbrd-key-md {
+    width: 60px;
+}
+
+.vkbrd-key-lg {
+    width: 90px;
+}
+
+.vkbrd-key-hg {
+    width: 300px;
 }
