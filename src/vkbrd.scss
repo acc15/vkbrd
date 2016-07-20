@@ -1,15 +1,22 @@
-$key-height: 30px;
-$key-width-step: 15px;
-$max-width: 4;
+$scale: 2;
+$size: 15px * $scale;
+$height: $size * 2;
+$max-steps: 4;
 
 .vkbrd-spacer {
   float: left;
-  height: $key-height;
+  height: $height;
 }
 
-@for $i from 1 through $max-width {
-  .vkbrd-spacer-#{$i} { width: $key-width-step * $i; }
-  .vkbrd-key-#{$i} { width: $key-width-step * $i; }
+@for $i from 1 through $max-steps {
+  .vkbrd-spacer-#{$i} { width: $size * $i; }
+  .vkbrd-key-#{$i} { width: $size * $i; }
+}
+
+.vkbrd-container {
+  position: absolute;
+  padding: 15px;
+  border: 1px solid lightgray;
 }
 
 .vkbrd-row {
@@ -17,22 +24,24 @@ $max-width: 4;
 }
 
 .vkbrd-key {
+  border-radius: 5px;
   margin: 0 2px;
-  height: $key-height;
+  height: $height;
+  font-size: $size;
 }
 
 .vkbrd-key-sm {
-  width: $key-width-step * 2;
+  width: $size * 2;
 }
 
 .vkbrd-key-md {
-  width: $key-width-step * 4;
+  width: $size * 4;
 }
 
 .vkbrd-key-lg {
-  width: $key-width-step * 6;
+  width: $size * 6;
 }
 
 .vkbrd-key-hg {
-  width: $key-width-step * 20;
+  width: $size * 20;
 }
