@@ -1,28 +1,38 @@
+$key-height: 30px;
+$key-width-step: 15px;
+$max-width: 4;
+
+.vkbrd-spacer {
+  float: left;
+  height: $key-height;
+}
+
+@for $i from 1 through $max-width {
+  .vkbrd-spacer-#{$i} { width: $key-width-step * $i; }
+  .vkbrd-key-#{$i} { width: $key-width-step * $i; }
+}
+
 .vkbrd-row {
-    margin: 2px 0;
+  margin: 2px 0;
 }
 
 .vkbrd-key {
-    margin: 0 2px;
-    height: 30px;
-}
-
-.vkbrd-spacer {
-    width: 10px;
+  margin: 0 2px;
+  height: $key-height;
 }
 
 .vkbrd-key-sm {
-    width: 30px;
+  width: $key-width-step * 2;
 }
 
 .vkbrd-key-md {
-    width: 60px;
+  width: $key-width-step * 4;
 }
 
 .vkbrd-key-lg {
-    width: 90px;
+  width: $key-width-step * 6;
 }
 
 .vkbrd-key-hg {
-    width: 300px;
+  width: $key-width-step * 20;
 }

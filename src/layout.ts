@@ -11,6 +11,7 @@ class StringLayout implements Layout {
         this.layout = layout;
     }
 
+
     build(kb: Keyboard): Key[] {
 
         let keys: Key[] = [];
@@ -22,33 +23,18 @@ class StringLayout implements Layout {
             let rowContainer = document.createElement("div");
             rowContainer.className = "vkbrd-row";
 
-            let rowKeys = row.split(/\s+/);
-            for (let rowKey of rowKeys) {
+            StringLayout.parseRow(row, (token, spaces) => {
 
-                let rowKeyParts = rowKey.split(":");
-                let keyId = rowKeyParts[0];
-                let keyWidth = rowKeyParts[1];
-
-                let keyButton = document.createElement("button");
-                let keyHandler = kb.handler(keyId);
-
-                let key = new ButtonKey(keyId, keyButton);
-                keyButton.type = "button";
-                keyButton.innerText = kb.label(keyId);
-                keyButton.className = "vkbrd-key";
-
-                if (keyId.length === 1) {
-                    keyWidth = "sm";
-                }
-                if (keyWidth) {
-                    keyButton.className += " vkbrd-key-" + keyWidth;
-                }
-                keyButton.addEventListener('click', function() {
-                    keyHandler(kb, key);
-                });
+                let parts = token.split(":");
+                let key = StringLayout.createKey(kb, parts[0], parts[1]);
                 keys.push(key);
-                rowContainer.appendChild(keyButton);
-            }
+
+                if (spaces > 1) {
+                    rowContainer.appendChild(StringLayout.createSpacer(spaces - 1));
+                }
+                rowContainer.appendChild(key.button);
+
+            });
             container.appendChild(rowContainer);
         }
 
@@ -56,4 +42,55 @@ class StringLayout implements Layout {
 
         return keys;
     }
+
+    private static createSpacer(width: number): HTMLElement {
+        let div = document.createElement("div");
+        div.className = "vkbrd-spacer vkbrd-spacer-" + width;
+        return div;
+    }
+
+    private static createKey(kb: Keyboard, id: string, width: string): ButtonKey {
+        let keyButton = document.createElement("button");
+        let keyHandler = kb.handler(id);
+
+        let key = new ButtonKey(id, keyButton);
+        keyButton.type = "button";
+        keyButton.innerText = kb.label(id);
+        keyButton.className = "vkbrd-key";
+
+        if (id.length === 1) {
+            width = "sm";
+        }
+        if (width) {
+            keyButton.className += " vkbrd-key-" + width;
+        }
+        keyButton.addEventListener('click', function() {
+            keyHandler(kb, key);
+        });
+
+        return key;
+    }
+
+    private static parseRow(row: string, callback: (token: string, spaces: number) => void) {
+
+        let tokenStart = -1, tokenEnd = 0;
+        for (let i = 0; i < row.length; i++) {
+            let ch = row[i];
+            if (ch === " ") {
+                if (tokenStart >= tokenEnd) {
+                    callback(row.substring(tokenStart, i), tokenStart - tokenEnd);
+                    tokenEnd = i;
+                }
+            } else {
+                if (tokenStart < tokenEnd) {
+                    tokenStart = i;
+                }
+            }
+        }
+        if (tokenStart > tokenEnd) {
+            callback(row.substring(tokenStart), tokenStart - tokenEnd);
+        }
+
+    }
+
 }
