@@ -1,7 +1,7 @@
 $scale: 2;
 $size: 15px * $scale;
 $height: $size * 2;
-$max-steps: 4;
+$max-steps: 12;
 
 .vkbrd-spacer {
   float: left;
@@ -35,7 +35,7 @@ $max-steps: 4;
 }
 
 .vkbrd-key-md {
-  width: $size * 4;
+  width: $size * 5;
 }
 
 .vkbrd-key-lg {

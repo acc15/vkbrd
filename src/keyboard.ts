@@ -91,8 +91,16 @@ class Keyboard {
         if (!this._target) {
             return;
         }
-        this._target.value += text;
+
+        let start: Number = this._target.selectionStart;
+        let end: Number = this._target.selectionEnd;
+        let current: String = this._target.value;
+
+        this._target.value = current.substring(0, start) + text + current.substring(end);
         this._target.focus();
+
+        let caretPos = start + text.length;
+        this._target.setSelectionRange(caretPos, caretPos);
     }
 
     register(key: Key) {
