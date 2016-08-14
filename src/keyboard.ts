@@ -92,15 +92,36 @@ class Keyboard {
             return;
         }
 
-        let start: Number = this._target.selectionStart;
-        let end: Number = this._target.selectionEnd;
-        let current: String = this._target.value;
+        let start: number = this._target.selectionStart;
+        let end: number = this._target.selectionEnd;
+        let current: string = this._target.value;
 
         this._target.value = current.substring(0, start) + text + current.substring(end);
         this._target.focus();
 
         let caretPos = start + text.length;
         this._target.setSelectionRange(caretPos, caretPos);
+    }
+
+    erase() {
+
+        if (!this._target) {
+            return;
+        }
+
+        let start: number = this._target.selectionStart;
+        let end: number = this._target.selectionEnd;
+        let current: string = this._target.value;
+        
+        if (start === end) {
+            --start;
+        }
+        if (start >= 0) {
+            this._target.value = current.substring(0, start) + current.substring(end);
+            this._target.setSelectionRange(start, start);
+        }
+        this._target.focus();
+
     }
 
     register(key: Key) {
